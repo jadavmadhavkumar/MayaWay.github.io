@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feather Match - Find Your Perfect Match</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        /* Custom Animation */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .slide-in {
+            animation: slideIn 1.2s ease-out;
+        }
+
+        @media (min-width: 768px) {
+            body {
+                padding-left: 250px; /* Width of the sidebar */
+            }
+        }
+
+        #sidebar {
+            width: 250px;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #ffffff;
+            overflow-y: auto;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        @media (max-width: 767px) {
+            #sidebar {
+                transform: translateX(-100%);
+            }
+            #sidebar.active {
+                transform: translateX(0);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            body {
+                padding-left: 0;
+            }
+
+            #sidebar {
+                width: 100%;
+                height: auto;
+                position: static;
+                transform: none;
+            }
+
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .hero .container {
+                padding: 2rem 1rem;
+            }
+
+            .hero .text-left {
+                text-align: center;
+                margin-left: 0;
+                max-width: 100%;
+            }
+
+            .flex-col-reverse {
+                flex-direction: column-reverse;
+            }
+
+            .md\:w-1\/2 {
+                width: 100%;
+            }
+
+            .md\:pr-8, .md\:pl-8 {
+                padding-right: 0;
+                padding-left: 0;
+            }
+
+            .md\:text-left {
+                text-align: center;
+            }
+
+            .md\:ml-64 {
+                margin-left: 0;
+            }
+        }
+
+        /* Fixed header styles */
+        .fixed-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.8); /* Transparent white background */
+            backdrop-filter: blur(5px); /* Blur effect for better readability */
+            transition: background-color 0.3s ease;
+        }
+
+        .fixed-header.scrolled {
+            background-color: rgba(255, 255, 255, 0.95); /* More opaque when scrolled */
+        }
+
+        /* Adjust main content to account for fixed header */
+        main {
+            padding-top: 64px; /* Adjust this value based on your header height */
+        }
+
+        @media (max-width: 768px) {
+            main {
+                padding-top: 56px; /* Adjust for smaller header on mobile */
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Sidebar Navigation -->
+    <nav id="sidebar" class="bg-white shadow-md p-4">
+        <div class="text-xl sm:text-2xl font-bold text-pink-600 hover:text-pink-700 transition-colors duration-300 mb-8">
+            <a href="index.html" class="flex items-center">
+                <svg class="h-8 w-8 text-pink-500 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+                <span>MayaWay</span>
+            </a>
+        </div>
+        <ul class="space-y-2">
+            <li><a href="#home" class="nav-link block py-2 px-4 rounded-md hover:bg-pink-100 hover:text-pink-600 transition-colors duration-300 flex items-center">
+                <svg class="h-8 w-8 text-pink-500 mr-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z"/>
+                    <polyline points="5 12 3 12 12 3 21 12 19 12" />
+                    <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+                    <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+                </svg>
+                Home
+            </a></li>
+            <li><a href="message.html" class="nav-link block py-2 px-4 rounded-md hover:bg-pink-100 hover:text-pink-600 transition-colors duration-300 flex items-center">
+                <svg class="h-8 w-8 text-pink-500 mr-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <circle cx="12" cy="12" r="1" />  <circle cx="12" cy="12" r="5" />  <circle cx="12" cy="12" r="9" stroke-dasharray=".001 4.03" /></svg>
+                message
+            </a></li>
+            <li><a href="contact.html" class="nav-link block py-2 px-4 rounded-md hover:bg-pink-100 hover:text-pink-600 transition-colors duration-300 flex items-center">
+                <svg class="h-8 w-8 text-pink-500 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2" />
+                    <line x1="12" y1="22" x2="12" y2="15.5" />
+                    <polyline points="22 8.5 12 15.5 2 8.5" />
+                    <polyline points="2 15.5 12 8.5 22 15.5" />
+                    <line x1="12" y1="2" x2="12" y2="8.5" />
+                </svg>
+                Contact
+            </a></li>
+            <li><a href="match.html" class="nav-link block py-2 px-4 rounded-md hover:bg-pink-100 hover:text-pink-600 transition-colors duration-300 flex items-center">
+                <svg class="h-8 w-8 text-pink-500 mr-2"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <circle cx="9" cy="7" r="4" />  <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />  <path d="M16 3.13a4 4 0 0 1 0 7.75" />  <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" /></svg>
+                Find Your Match
+            </a></li>
+            <li><a href="chat.html" class="nav-link block py-2 px-4 rounded-md hover:bg-pink-100 hover:text-pink-600 transition-colors duration-300 flex items-center">
+                <svg class="h-8 w-8 text-pink-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                </svg>
+                Chat
+            </a></li>
+
+            <li><a href="cab_system.html" class="nav-link block py-2 px-4 rounded-md hover:bg-pink-100 hover:text-pink-600 transition-colors duration-300 flex items-center">
+                <svg class="h-8 w-8 text-pink-500 mr-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <circle cx="7" cy="17" r="2" />  <circle cx="17" cy="17" r="2" />  <path d="M5 17h-2v-11a1 1 0 0 1 1 -1h9v12m-4 0h6m4 0h2v-6h-8m0 -5h5l3 5" /></svg>
+                Cab Booking
+            </a></li>
+            <li><a href="#hotel-booking" class="nav-link block py-2 px-4 rounded-md hover:bg-pink-100 hover:text-pink-600 transition-colors duration-300 flex items-center">
+                <svg class="h-8 w-8 text-pink-500 mr-2"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M3 21v-13l9-4l9 4v13" />  <path d="M13 13h4v8h-10v-6h6" />  <path d="M13 21v-9a1 1 0 0 0 -1 -1h-2a1 1 0 0 0 -1 1v3" /></svg>
+                Hotel Booking
+            </a></li>
+            <li><a href="profile.html" class="nav-link block py-2 px-4 rounded-md hover:bg-pink-100 hover:text-pink-600 transition-colors duration-300 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-8 w-8 text-pink-500 mr-2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                </svg>
+                Profile
+            </a></li>
+            <li><a href="#about" class="nav-link block py-2 px-4 rounded-md hover:bg-pink-100 hover:text-pink-600 transition-colors duration-300 flex items-center">
+                <svg class="h-8 w-8 text-pink-500 mr-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M11 3L20 12a1.5 1.5 0 0 1 0 2L14 20a1.5 1.5 0 0 1 -2 0L3 11v-4a4 4 0 0 1 4 -4h4" />  <circle cx="9" cy="9" r="2" /></svg>
+                About
+            </a></li>
+        </ul>
+    </nav>
+
+    <!-- Fixed Header for all devices -->
+    <header class="fixed-header">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="text-xl font-bold text-pink-600">
+                <a href="index.html" class="flex items-center">
+                    <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 3.5a1.5 1.5 0 013 0V4a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-.5a1.5 1.5 0 000 3h.5a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-.5a1.5 1.5 0 00-3 0v.5a1 1 0 01-1 1H6a1 1 0 01-1-1v-3a1 1 0 00-1-1h-.5a1.5 1.5 0 010-3H4a1 1 0 001-1V6a1 1 0 011-1h3a1 1 0 001-1v-.5z"></path></svg>
+                    <span>MayaWay</span>
+                </a>
+            </div>
+            <div class="flex items-center">
+                <a href="login.html" class="text-pink-600 hover:text-pink-700 mr-4">Login</a>
+                <a href="signup.html" class="bg-pink-600 text-white px-4 py-2 rounded-md hover:bg-pink-700 transition-colors duration-300">Sign Up</a>
+                <button id="mobile-menu-button" class="ml-4 md:hidden">
+                    <svg class="w-6 h-6 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Navigation Menu -->
+        <nav id="mobile-nav" class="hidden bg-white shadow-md">
+            <ul class="py-2">
+                <li><a href="#home" class="block py-2 px-4 text-pink-600 hover:bg-pink-100">Home</a></li>
+                <li><a href="message.html" class="block py-2 px-4 text-pink-600 hover:bg-pink-100">Message</a></li>
+                <li><a href="contact.html" class="block py-2 px-4 text-pink-600 hover:bg-pink-100">Contact</a></li>
+                <li><a href="match.html" class="block py-2 px-4 text-pink-600 hover:bg-pink-100">Find Your Match</a></li>
+                <li><a href="chat.html" class="block py-2 px-4 text-pink-600 hover:bg-pink-100">Chat</a></li>
+                <li><a href="cab_system.html" class="block py-2 px-4 text-pink-600 hover:bg-pink-100">Cab Booking</a></li>
+                <li><a href="#hotel-booking" class="block py-2 px-4 text-pink-600 hover:bg-pink-100">Hotel Booking</a></li>
+                <li><a href="profile.html" class="block py-2 px-4 text-pink-600 hover:bg-pink-100">Profile</a></li>
+                <li><a href="#about" class="block py-2 px-4 text-pink-600 hover:bg-pink-100">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pt-16 md:pt-20">
+        <!-- Hero Section -->
+        <section id="home" class="hero bg-gray-100 text-dark-gray-500 py-12 md:py-24 bg-cover bg-center bg-no-repeat min-h-screen flex items-center" style="background-image: url('https://cdn.pixabay.com/photo/2021/09/24/21/06/couple-6653517_1280.jpg');">
+            <div class="container mx-auto">
+                <div class="text-center md:text-left slide-in bg-white bg-opacity-60 p-8 md:p-12 rounded-lg mx-auto md:ml-8 max-w-lg">
+                    <h1 class="text-4xl md:text-5xl font-bold text-pink-600 leading-tight">Find Your Perfect Match</h1>
+                    <p class="text-lg md:text-xl text-pink-500 mt-4 md:mt-6">Discover meaningful connections with Feather Match</p>
+                    <a href="signup.html" class="mt-6 md:mt-10 inline-block bg-pink-500 text-white px-6 md:px-8 py-3 md:py-4 rounded-lg shadow-md hover:bg-pink-600 transition duration-300 text-base md:text-lg">Get Started</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <div class="container mx-auto mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <span class="text-3xl font-bold text-pink-500">1M+</span>
+                <p class="mt-2 text-gray-600">Active Users</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <span class="text-3xl font-bold text-pink-500">500K+</span>
+                <p class="mt-2 text-gray-600">Matches Made</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <span class="text-3xl font-bold text-pink-500">100K+</span>
+                <p class="mt-2 text-gray-600">Success Stories</p>
+            </div>
+        </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="bg-white py-16">
+            <div class="container mx-auto">
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 text-center md:text-left md:pr-8">
+                        <h2 class="text-3xl font-bold text-gray-800">Features of Feather Match</h2>
+                        <p class="mt-4 text-gray-600">Explore features designed to connect people in meaningful ways.</p>
+                        <!-- Add more feature content here -->
+                    </div>
+                    <div class="md:w-1/2 mt-8 md:mt-0">
+                        <img src="https://as1.ftcdn.net/v2/jpg/03/13/46/30/1000_F_313463015_k4t5ZWYJGLZtsdkqoMPGZuk03GGXbqaB.jpg" alt="Features" class="rounded-lg shadow-lg">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="bg-gray-100 py-16">
+            <div class="container mx-auto">
+                <div class="flex flex-col md:flex-row-reverse items-center">
+                    <div class="md:w-1/2 text-center md:text-left md:pl-8">
+                        <h2 class="text-3xl font-bold text-gray-800">About Feather Match</h2>
+                        <p class="mt-4 text-gray-600">Feather Match is a dating platform focused on creating meaningful relationships.</p>
+                        <!-- Add more about content here -->
+                    </div>
+                    <div class="md:w-1/2 mt-8 md:mt-0">
+                        <img src="https://imgix.bustle.com/uploads/getty/2022/4/4/8a4a7945-1a92-40a4-a72b-f3ac6a1366b1-getty-1385578590.jpg?w=1100" alt="About Us" class="rounded-lg shadow-lg">
+                    </div>
+                </div>
+            </div>
+        </section>
+         <!-- Communication Section -->
+         <section id="communication" class="bg-white py-12 md:py-16">
+            <div class="container mx-auto">
+                <div class="flex flex-col md:flex-row-reverse items-center">
+                    <div class="w-full md:w-1/2 mt-8 md:mt-0 md:pl-8">
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Communication" class="rounded-lg shadow-lg w-full">
+                    </div>
+                    <div class="w-full md:w-1/2 text-center md:text-left md:pr-8 mt-8 md:mt-0">
+                        <h2 class="text-2xl md:text-3xl font-bold text-gray-800">Feather Communication</h2>
+                        <p class="mt-4 text-gray-600">Stay connected with your match through our seamless communication tools.</p>
+                        <ul class="mt-6 text-left">
+                            <li class="flex items-center mb-2">
+                                <svg class="w-6 h-6 mr-2 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                Real-time messaging with end-to-end encryption
+                            </li>
+                            <li class="flex items-center mb-2">
+                                <svg class="w-6 h-6 mr-2 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                Video calling for virtual dates
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-6 h-6 mr-2 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                Share photos and plan your next meetup
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Hotel Booking Section -->
+        <section id="hotel-booking" class="bg-gray-100 py-16">
+            <div class="container mx-auto">
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 mt-8 md:mt-0 md:pr-8">
+                        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Hotel Booking" class="rounded-lg shadow-lg">
+                    </div>
+                    <div class="md:w-1/2 text-center md:text-left md:pl-8">
+                        <h2 class="text-3xl font-bold text-gray-800">Feather Hotel Booking</h2>
+                        <p class="mt-4 text-gray-600">Find the perfect nest for your romantic getaway or business trip.</p>
+                        <ul class="mt-6 text-left">
+                            <li class="flex items-center mb-2">
+                                <svg class="w-6 h-6 mr-2 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                Exclusive deals for Feather Match members
+                            </li>
+                            <li class="flex items-center mb-2">
+                                <svg class="w-6 h-6 mr-2 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                Handpicked romantic destinations
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-6 h-6 mr-2 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                24/7 customer support for smooth bookings
+                            </li>
+                        </ul>
+                        <div class="text-center mt-6">
+                            <a href="hotel_booking.html" class="in line-block bg-pink-500 text-white px-6 py-3 rounded-md shadow-sm hover:bg-pink-600 transition duration-300 text-sm font-semibold">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+       
+
+
+        <!-- Contact Section -->
+        <section id="contact" class="bg-white py-16">
+            <div class="container mx-auto">
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 text-center md:text-left md:pr-8">
+                        <h2 class="text-3xl font-bold text-gray-800">Contact Us</h2>
+                        <p class="mt-4 text-gray-600">Got questions? Reach out to us!</p>
+                        <!-- Add contact form or contact details here -->
+                    </div>
+                    <div class="md:w-1/2 mt-8 md:mt-0">
+                        <img src="https://imgs.search.brave.com/Emedzz3KB7w71CVlr1rdq3g90A4JK63xdiOM0MmoNZE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTI3/NzQwMDcxOS9waG90/by9oYXBweS1jYWxs/LWNlbnRlci1vcGVy/YXRvci5qcGc_cz02/MTJ4NjEyJnc9MCZr/PTIwJmM9b081Tkk0/bGtBd0VUWTgtSTFu/a0wyUkkzNUxTNWRm/NmxrWUpMTkJiZVJZ/TT0" alt="Contact Us" class="rounded-lg shadow-lg">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-4 text-center">
+        <p>&copy; 2023 Feather Match. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Fade in effect on scroll
+        window.addEventListener('scroll', function() {
+            let elements = document.querySelectorAll('.fade-in, .slide-in');
+            let windowHeight = window.innerHeight;
+            elements.forEach(function(el) {
+                let elementTop = el.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 300) {
+                    el.classList.add('visible');
+                }
+            });
+        });
+
+        // Image slideshow
+        const images = [
+            "https://cdn.pixabay.com/photo/2016/11/14/04/25/couple-1822585_1280.jpg",
+            "https://cdn.pixabay.com/photo/2020/10/28/11/28/couple-5693164_960_720.jpg",
+            "https://cdn.pixabay.com/photo/2017/08/06/18/05/people-2594745_1280.jpg",
+            "https://cdn.pixabay.com/photo/2019/09/01/18/02/wedding-4445670_1280.jpg"
+        ];
+        let currentImageIndex = 0;
+        const heroSection = document.getElementById('home');
+
+        function changeBackgroundImage() {
+            heroSection.style.backgroundImage = `url('${images[currentImageIndex]}')`;
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+        }
+
+        setInterval(changeBackgroundImage, 5000); // Change image every 5 seconds
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileNav = document.getElementById('mobile-nav');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileNav.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('#mobile-nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNav.classList.add('hidden');
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileNav.contains(e.target) && e.target !== mobileMenuButton) {
+                mobileNav.classList.add('hidden');
+            }
+        });
+
+        // Hide mobile menu on larger screens
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) {
+                mobileNav.classList.add('hidden');
+            }
+        });
+
+        // Feather icon animation
+        document.addEventListener('DOMContentLoaded', () => {
+            feather.replace();
+            const featherIcons = document.querySelectorAll('.feather');
+            
+            featherIcons.forEach(icon => {
+                icon.addEventListener('mouseover', () => {
+                    icon.style.transition = 'transform 0.3s ease-in-out';
+                    icon.style.transform = 'scale(1.2) rotate(10deg)';
+                });
+                
+                icon.addEventListener('mouseout', () => {
+                    icon.style.transition = 'transform 0.3s ease-in-out';
+                    icon.style.transform = 'scale(1) rotate(0deg)';
+                });
+            });
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.fixed-header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>

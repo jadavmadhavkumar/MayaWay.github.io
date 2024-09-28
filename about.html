@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - MayaWay</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 flex flex-col min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-lg fixed top-0 left-0 right-0 z-50">
+        <nav class="container mx-auto flex justify-between items-center py-4 px-4 lg:px-0">
+            <div class="text-xl sm:text-2xl font-bold text-pink-600 hover:text-pink-700 transition-colors duration-300">
+                <a href="index.html" class="flex items-center">
+                    <svg class="w-6 h-6 sm:w-8 sm:h-8 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 3.5a1.5 1.5 0 013 0V4a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-.5a1.5 1.5 0 000 3h.5a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-.5a1.5 1.5 0 00-3 0v.5a1 1 0 01-1 1H6a1 1 0 01-1-1v-3a1 1 0 00-1-1h-.5a1.5 1.5 0 010-3H4a1 1 0 001-1V6a1 1 0 011-1h3a1 1 0 001-1v-.5z"></path>
+                    </svg>
+                    <span>MayaWay</span>
+                </a>
+            </div>
+            <button class="md:hidden text-gray-600 hover:text-pink-600 focus:outline-none" id="menu-toggle">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+            <ul class="hidden md:flex space-x-8" id="menu">
+                <li><a href="index.html" class="text-gray-700 hover:text-pink-600">Home</a></li>
+                <li><a href="about.html" class="text-gray-700 hover:text-pink-600">About</a></li>
+                <li><a href="match.html" class="text-gray-700 hover:text-pink-600">Matches</a></li>
+                <li><a href="chat.html" class="text-gray-700 hover:text-pink-600">Chat</a></li>
+            </ul>
+            <div class="hidden md:flex space-x-4">
+                <a href="login.html" class="btn bg-pink-600 text-white py-2 px-4 rounded-lg hover:bg-pink-700 transition-all duration-300 transform hover:scale-105">Login</a>
+                <a href="signup.html" class="btn bg-gray-200 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-300 transition-all duration-300 transform hover:scale-105">Sign Up</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto mt-20 p-8">
+        <section class="bg-white shadow-lg rounded-lg p-8">
+            <h1 class="text-4xl font-bold text-gray-800 mb-6">About MayaWay</h1>
+            <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                Welcome to <strong>MayaWay</strong>, your premier platform for finding meaningful connections and relationships. At MayaWay, we believe that everyone deserves to find their perfect match, and we’ve built our platform to make that happen.
+            </p>
+            <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                Our intelligent matching system goes beyond just simple interests and location — we focus on deep compatibility by analyzing your preferences, habits, and lifestyle. Whether you’re looking for friendship, romance, or something more, MayaWay connects you with people who share your passions and goals.
+            </p>
+            <h2 class="text-3xl font-semibold text-gray-800 mb-4">Our Vision</h2>
+            <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                At MayaWay, our vision is simple: to help people form genuine connections in an increasingly digital world. We aim to foster relationships that last and are built on trust, respect, and shared values. In a world where it’s easy to feel disconnected, MayaWay helps you find someone who truly understands you.
+            </p>
+            <h2 class="text-3xl font-semibold text-gray-800 mb-4">Our Features</h2>
+            <ul class="list-disc list-inside text-lg text-gray-700 mb-6">
+                <li>Advanced Matching Algorithms</li>
+                <li>Geo-location Based Match Suggestions</li>
+                <li>In-depth Profiles with Interests and Hobbies</li>
+                <li>Private Messaging and Chat Features</li>
+                <li>Hotel and Date Night Booking Integration</li>
+            </ul>
+            <h2 class="text-3xl font-semibold text-gray-800 mb-4">Our Team</h2>
+            <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                MayaWay is built by a passionate team of developers, relationship experts, and designers who are committed to making online dating safe, fun, and successful. We are constantly working to improve your experience on the platform and help you find your match.
+            </p>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white text-center py-6 mt-auto">
+        <p>&copy; 2024 MayaWay. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const menu = document.getElementById('menu');
+
+        menuToggle.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('block');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (event) => {
+            const isClickInsideMenu = menu.contains(event.target);
+            const isClickOnMenuToggle = menuToggle.contains(event.target);
+
+            if (!isClickInsideMenu && !isClickOnMenuToggle && !menu.classList.contains('hidden')) {
+                menu.classList.add('hidden');
+                menu.classList.remove('block');
+            }
+        });
+    </script>
+
+</body>
+
+</html>

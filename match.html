@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feather Match - Matches</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 flex flex-col min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-white shadow-lg fixed top-0 left-0 right-0 z-50">
+        <nav class="container mx-auto flex flex-wrap justify-between items-center py-4 px-4 lg:px-0">
+            <div class="text-xl sm:text-2xl font-bold text-pink-600 hover:text-pink-700 transition-colors duration-300">
+                <a href="index.html" class="flex items-center">
+                    <svg class="w-6 h-6 sm:w-8 sm:h-8 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 3.5a1.5 1.5 0 013 0V4a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-.5a1.5 1.5 0 000 3h.5a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-.5a1.5 1.5 0 00-3 0v.5a1 1 0 01-1 1H6a1 1 0 01-1-1v-3a1 1 0 00-1-1h-.5a1.5 1.5 0 010-3H4a1 1 0 001-1V6a1 1 0 011-1h3a1 1 0 001-1v-.5z"></path></svg>
+                    <span>MayaWay</span>
+                </a>
+            </div>
+            <button class="md:hidden text-gray-600 hover:text-pink-600 focus:outline-none" id="menu-toggle">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+            <ul class="hidden md:flex space-x-8" id="menu">
+                <li><a href="index.html" class="text-gray-700 hover:text-pink-600">Home</a></li>
+                <li><a href="profile.html" class="text-gray-700 hover:text-pink-600">Profile</a></li>
+                <li><a href="match.html" class="text-gray-700 hover:text-pink-600">Matches</a></li>
+                <li><a href="chat.html" class="text-gray-700 hover:text-pink-600">Chat</a></li>
+            </ul>
+            <div class="hidden md:flex space-x-4">
+                <a href="login.html" class="btn bg-pink-600 text-white py-2 px-4 rounded-lg hover:bg-pink-700 transition-all duration-300 transform hover:scale-105">Login</a>
+                <a href="signup.html" class="btn bg-gray-200 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-300 transition-all duration-300 transform hover:scale-105">Sign Up</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Updated Matches Section -->
+    <div class="container mx-auto p-8 mt-20">
+        <div class="bg-white shadow-lg rounded-lg p-8">
+            <h2 class="text-3xl font-bold text-gray-700 mb-6">Your Matches</h2>
+            <div id="matches" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Match Profiles will be dynamically inserted here -->
+                <div class="bg-gray-100 rounded-lg p-6">
+                    <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Profile Picture" class="w-32 h-32 rounded-full mx-auto mb-4">
+                    <h3 class="text-xl font-bold text-gray-700 mb-2">John Doe</h3>
+                    <p class="text-gray-600 mb-4">Age: 28</p>
+                    <p class="text-gray-600 mb-4">Location: New York</p>
+                    <a href="profile.html" class="text-pink-600 mt-2 block">View Profile</a>
+                </div>
+
+                <div class="bg-gray-100 rounded-lg p-6">
+                    <img src="https://randomuser.me/api/portraits/women/2.jpg" alt="Profile Picture" class="w-32 h-32 rounded-full mx-auto mb-4">
+                    <h3 class="text-xl font-bold text-gray-700 mb-2">Jane Smith</h3>
+                    <p class="text-gray-600 mb-4">Age: 30</p>
+                    <p class="text-gray-600 mb-4">Location: Los Angeles</p>
+                    <a href="profile.html" class="text-pink-600 mt-2 block">View Profile</a>
+                </div>
+
+                <div class="bg-gray-100 rounded-lg p-6">
+                    <img src="https://randomuser.me/api/portraits/women/3.jpg" alt="Profile Picture" class="w-32 h-32 rounded-full mx-auto mb-4">
+                    <h3 class="text-xl font-bold text-gray-700 mb-2">Emily Johnson</h3>
+                    <p class="text-gray-600 mb-4">Age: 25</p>
+                    <p class="text-gray-600 mb-4">Location: Chicago</p>
+                    <a href="profile.html" class="text-pink-600 mt-2 block">View Profile</a>
+                </div>
+
+                <div class="bg-gray-100 rounded-lg p-6">
+                    <img src="https://randomuser.me/api/portraits/women/4.jpg" alt="Profile Picture" class="w-32 h-32 rounded-full mx-auto mb-4">
+                    <h3 class="text-xl font-bold text-gray-700 mb-2">Emily</h3>
+                    <p class="text-gray-600 mb-4">Age: 25</p>
+                    <p class="text-gray-600 mb-4">Location: Chicago</p>
+                    <a href="profile.html" class="text-pink-600 mt-2 block">View Profile</a>    
+                </div>
+
+                <div class="bg-gray-100 rounded-lg p-6">
+                    <img src="https://randomuser.me/api/portraits/women/5.jpg" alt="Profile Picture" class="w-32 h-32 rounded-full mx-auto mb-4">
+                    <h3 class="text-xl font-bold text-gray-700 mb-2">Sarah</h3>
+                    <p class="text-gray-600 mb-4">Age: 29</p>
+                    <p class="text-gray-600 mb-4">Location: San Francisco</p>
+                    <a href="profile.html" class="text-pink-600 mt-2 block">View Profile</a>
+                </div>      
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Push footer to bottom -->
+    <div class="flex-grow"></div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white text-center py-6">
+        <p>&copy; 2024 Feather Match. All rights reserved.</p>
+    </footer>
+
+    <!-- New script for fetching matches -->
+    <script>
+        async function fetchMatches() {
+            try {
+                const response = await fetch('http://127.0.0.1:5000/api/matches');
+                const matches = await response.json();
+
+                const matchesContainer = document.getElementById('matches');
+                matchesContainer.innerHTML = ''; // Clear previous content
+
+                matches.forEach(match => {
+                    const matchCard = `
+                        <div class="bg-gray-100 p-4 rounded-lg text-center">
+                            <img src="https://randomuser.me/api/portraits/men/64.jpg" alt="Match" class="w-24 h-24 rounded-full mx-auto mb-4">
+                            <p class="text-lg font-bold text-gray-700">${match.name}</p>
+                            <a href="profile.html" class="text-pink-600 mt-2 block">View Profile</a>
+                        </div>
+                    `;
+                    matchesContainer.innerHTML += matchCard;
+                });
+            } catch (error) {
+                console.error('Error fetching matches:', error);
+            }
+        }
+
+        window.onload = function() {
+            fetchMatches();
+
+            // Add this new code for menu toggle functionality
+            const menuToggle = document.getElementById('menu-toggle');
+            const menu = document.getElementById('menu');
+
+            menuToggle.addEventListener('click', function() {
+                menu.classList.toggle('hidden');
+                menu.classList.toggle('flex');
+                menu.classList.toggle('flex-col');
+                menu.classList.toggle('absolute');
+                menu.classList.toggle('top-16');
+                menu.classList.toggle('left-0');
+                menu.classList.toggle('right-0');
+                menu.classList.toggle('bg-white');
+                menu.classList.toggle('shadow-md');
+                menu.classList.toggle('p-4');
+            });
+        };
+    </script>
+
+</body>
+</html>
+
